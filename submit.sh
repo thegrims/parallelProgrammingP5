@@ -2,7 +2,7 @@
 #SBATCH -J MatrixMult
 #SBATCH -A cs475-575
 #SBATCH -p class
-#SBATCH –gres=gpu:1
+#SBATCH -–gres=gpu:1
 #SBATCH -o matrixmul.out
 #SBATCH -e matrixmul.err
 #SBATCH --mail-type=BEGIN,END,FAIL
