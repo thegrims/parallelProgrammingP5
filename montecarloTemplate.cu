@@ -60,23 +60,50 @@ __global__  void MonteCarlo( float *Xcs, float *Ycs, float *Rs, int *Hits )
 	Hits[gid] = 0;
 
 	// solve for the intersection using the quadratic formula:
-
-	float a = . . .
-	float b = . . .
-	float c = . . .
-	float d = . . .
+	float a = 1. + tn * tn;
+	float b = -2. * (xc + yc * tn);
+	float c = xc * xc + yc * yc - r * r;
+	float d = b * b - 4. * a * c;
 
 	// cascading if-statements:
 	//	if you used "continue;" in project #1, change to this style because,
 	//	if there is no for-loop, then there is nowhere to continue to
 
-	if( ... )
+	if (d < 0)
 	{
-		. . .
+		// hits the circle:
+		// get the first intersection:
+		d = sqrt(d);
+		float t1 = (-b + d) / (2. * a); // time to intersect the circle
+		float t2 = (-b - d) / (2. * a); // time to intersect the circle
+		float tmin = t1 < t2 ? t1 : t2; // only care about the first intersection
+		// If tmin is less than 0., then the circle completely engulfs the laser pointer. (Case B) Continue on to the next trial in the for-loop.
 
-		if( ... )
+		if (tmin < 0)
 		{
-			. . .
+
+            // where does it intersect the circle?
+            float xcir = tmin;
+            float ycir = tmin * tn;
+
+            // get the unitized normal vector at the point of intersection:
+            float nx = xcir - xc;
+            float ny = ycir - yc;
+            float nxy = sqrt(nx * nx + ny * ny);
+            nx /= nxy; // unit vector
+            ny /= nxy; // unit vector
+
+            // get the unitized incoming vector:
+            float inx = xcir - 0.;
+            float iny = ycir - 0.;
+            float in = sqrt(inx * inx + iny * iny);
+            inx /= in; // unit vector
+            iny /= in; // unit vector
+
+            // get the outgoing (bounced) vector:
+            float dot = inx * nx + iny * ny;
+            float outx = inx - 2. * nx * dot; // angle of reflection = angle of incidence`
+            float outy = iny - 2. * ny * dot; // angle of reflection = angle of incidence`
 
 			// find out if it hits the infinite plate:
 			float t = ( 0. - ycir ) / outy;
