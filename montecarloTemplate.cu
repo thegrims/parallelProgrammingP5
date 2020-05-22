@@ -107,7 +107,7 @@ __global__  void MonteCarlo( float *Xcs, float *Ycs, float *Rs, int *Hits )
 
 			// find out if it hits the infinite plate:
 			float t = ( 0. - ycir ) / outy;
-			if( t >= 0. )
+			if( t < 0. )
 			{
 				Hits[gid] = 1;
 			}
@@ -237,7 +237,7 @@ main( int argc, char* argv[ ] )
 	{
 		numHits += hHits[i];
 	}
-
+	fprintf(stderr, "\nnumHits= %d\n", numHits);
 	float probability = 100.f * (float)numHits / (float)NUMTRIALS;
 	fprintf(stderr, "\nProbability = %6.3f %%\n", probability );
 
