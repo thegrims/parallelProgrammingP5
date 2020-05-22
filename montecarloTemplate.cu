@@ -69,7 +69,7 @@ __global__  void MonteCarlo( float *Xcs, float *Ycs, float *Rs, int *Hits )
 	//	if you used "continue;" in project #1, change to this style because,
 	//	if there is no for-loop, then there is nowhere to continue to
 
-	if (d < 0)
+	if (d >= 0)
 	{
 		// hits the circle:
 		// get the first intersection:
@@ -79,7 +79,7 @@ __global__  void MonteCarlo( float *Xcs, float *Ycs, float *Rs, int *Hits )
 		float tmin = t1 < t2 ? t1 : t2; // only care about the first intersection
 		// If tmin is less than 0., then the circle completely engulfs the laser pointer. (Case B) Continue on to the next trial in the for-loop.
 
-		if (tmin < 0)
+		if (tmin >= 0)
 		{
 
             // where does it intersect the circle?
@@ -107,7 +107,7 @@ __global__  void MonteCarlo( float *Xcs, float *Ycs, float *Rs, int *Hits )
 
 			// find out if it hits the infinite plate:
 			float t = ( 0. - ycir ) / outy;
-			if( t < 0. )
+			if (t >= 0.)
 			{
 				Hits[gid] = 1;
 			}
