@@ -222,7 +222,7 @@ main( int argc, char* argv[ ] )
 	double secondsTotal = 0.001 * (double)msecTotal;
 	double trialsPerSecond = (float)NUMTRIALS / secondsTotal;
 	double megaTrialsPerSecond = trialsPerSecond / 1000000.;
-	fprintf(stderr, "%10d,\t%10.4lf\t%d\t", NUMTRIALS, megaTrialsPerSecond, BLOCKSIZE);
+	fprintf(stderr, "%10d\t%10.4lf\t%d\t", NUMTRIALS, megaTrialsPerSecond, BLOCKSIZE);
 
 	// copy result from the device to the host:
 
