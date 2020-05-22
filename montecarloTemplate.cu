@@ -237,7 +237,6 @@ main( int argc, char* argv[ ] )
 	{
 		numHits += hHits[i];
 	}
-	fprintf(stderr, "\nnumHits= %d\n", numHits);
 	float probability = 100.f * (float)numHits / (float)NUMTRIALS;
 	fprintf(stderr, "\nProbability = %6.3f %%\n", probability );
 

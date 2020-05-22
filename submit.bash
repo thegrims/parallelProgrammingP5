@@ -7,8 +7,8 @@
 #SBATCH -e montecarloTemplate.err
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=grimshaa@oregonstate.edu
-for t in 1 2 4 8 16 32
+for BLOCKSIZE in 16, 32, 64 128
 do
-/usr/local/apps/cuda/cuda-10.1/bin/nvcc -DNUMT=$t -o montecarloTemplate montecarloTemplate.cu
+/usr/local/apps/cuda/cuda-10.1/bin/nvcc -DBLOCKSIZE=$BLOCKSIZE -o montecarloTemplate montecarloTemplate.cu
 ./montecarloTemplate
 done
